@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  nodered:
+    container_name: nodered
+    hostname: nodered
+    image: nodered/node-red:latest
+    restart: always
+    environment:
+      - TZ=Europe/Paris
+    ports:
+      #"1880:1880"
+    volumes:
+      - "C:/Users/ebillard/Docker-Compose/nodered/data:/data"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nodered.rule=Host(`nodered.mypc`)"
+      - "traefik.http.routers.nodered.entrypoints=web"
+      - "traefik.http.services.nodered.loadbalancer.server.port=1880"
+
+    #network_mode: host
